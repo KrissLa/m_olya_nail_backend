@@ -1,0 +1,18 @@
+#DJANGO
+
+SECRET_KEY=""
+DB_NAME=
+PG_USER=
+PG_PASSWORD=
+DB_HOST=localhost
+DB_PORT=5432
+DEBUG=True
+ADMIN_ADDRESS=
+REFERAL_BONUS=5000
+FREE_BONUS=4000
+FREE_CODE=BONUS
+
+
+
+#498 - Ошибка добавления фотографии
+#497 - Пользователь не найден
