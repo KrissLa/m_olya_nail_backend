@@ -17,8 +17,6 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = str(os.getenv("SECRET_KEY"))
 
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -29,7 +27,6 @@ SECRET_KEY = str(os.getenv("SECRET_KEY"))
 DEBUG = bool(os.getenv("DEBUG"))
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -46,9 +43,10 @@ INSTALLED_APPS = [
 
     'users',
     'instagram',
-    'questions'
-
-
+    'questions',
+    'services',
+    'available_dates',
+    'orders',
 
 ]
 
@@ -82,7 +80,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'olya_nail.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -96,7 +93,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -116,7 +112,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -130,12 +125,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -145,7 +138,6 @@ REST_FRAMEWORK = {
     #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     # ]
 }
-
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=365),
@@ -187,3 +179,114 @@ SIMPLE_JWT = {
 REFERAL_BONUS = int(os.getenv("REFERAL_BONUS"))
 FREE_BONUS = int(os.getenv("FREE_BONUS"))
 FREE_CODE = str(os.getenv("FREE_CODE"))
+
+PERSONAL_CASHBACK_LEVEL = {
+    1: {
+        'value': 1.5,
+        'min_order_quantity': 0,
+        'max_order_quantity': 1
+    },
+    2: {
+        'value': 1.6,
+        'min_order_quantity': 1,
+        'max_order_quantity': 5
+    },
+    3: {
+        'value': 1.7,
+        'min_order_quantity': 5,
+        'max_order_quantity': 10
+    },
+    4: {
+        'value': 1.8,
+        'min_order_quantity': 10,
+        'max_order_quantity': 15
+    },
+    5: {
+        'value': 1.9,
+        'min_order_quantity': 15,
+        'max_order_quantity': 20
+    },
+    6: {
+        'value': 2,
+        'min_order_quantity': 20,
+        'max_order_quantity': 25
+    },
+    7: {
+        'value': 2.1,
+        'min_order_quantity': 25,
+        'max_order_quantity': 30
+    },
+    8: {
+        'value': 2.2,
+        'min_order_quantity': 30,
+        'max_order_quantity': 35
+    },
+    9: {
+        'value': 2.3,
+        'min_order_quantity': 35,
+        'max_order_quantity': 40
+    },
+    10: {
+        'value': 2.4,
+        'min_order_quantity': 40,
+        'max_order_quantity': 45
+    },
+}
+
+REFERAL_CASHBACK_LEVEL = {
+    0: {
+        'value': 0,
+        'min_order_quantity': 0,
+        'max_order_quantity': 1
+    },
+    1: {
+        'value': 1,
+        'min_order_quantity': 1,
+        'max_order_quantity': 5
+    },
+    2: {
+        'value': 1.1,
+        'min_order_quantity': 5,
+        'max_order_quantity': 10
+    },
+    3: {
+        'value': 1.2,
+        'min_order_quantity': 10,
+        'max_order_quantity': 20
+    },
+    4: {
+        'value': 1.3,
+        'min_order_quantity': 20,
+        'max_order_quantity': 30
+    },
+    5: {
+        'value': 1.4,
+        'min_order_quantity': 30,
+        'max_order_quantity': 40
+    },
+    6: {
+        'value': 1.5,
+        'min_order_quantity': 40,
+        'max_order_quantity': 50
+    },
+    7: {
+        'value': 1.6,
+        'min_order_quantity': 50,
+        'max_order_quantity': 70
+    },
+    8: {
+        'value': 1.7,
+        'min_order_quantity': 70,
+        'max_order_quantity': 90
+    },
+    9: {
+        'value': 1.8,
+        'min_order_quantity': 90,
+        'max_order_quantity': 110
+    },
+    10: {
+        'value': 1.9,
+        'min_order_quantity': 110,
+        'max_order_quantity': 130
+    },
+}

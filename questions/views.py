@@ -1,18 +1,15 @@
-from datetime import timedelta, datetime
+from datetime import datetime
 
+from loguru import logger
 from pytz import timezone
-from rest_framework.views import APIView
-from django.shortcuts import render
 from rest_framework import status
-from rest_framework.generics import ListCreateAPIView, UpdateAPIView
-from rest_framework.permissions import IsAdminUser
+from rest_framework.generics import ListCreateAPIView
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .models import Question
 from .serializers import QuestionListSerializer
-from loguru import logger
-
-from .services.time_conversion import get_str_time, get_avg_time
+from .services.time_conversion import get_avg_time
 
 
 class QuestionListCreateAPIView(ListCreateAPIView):

@@ -4,13 +4,16 @@ from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import BotUser, BotUserCashback, Referal
-from .serializers import UserListSerializer, UserCanBeInvitedSerializer, BotUserCashbackSerializer, UserIDSerializer
+from olya_nail.settings import PERSONAL_CASHBACK_LEVEL, REFERAL_CASHBACK_LEVEL
+from .models import BotUser, Referal
+from .serializers import UserListSerializer, UserCanBeInvitedSerializer, UserIDSerializer, \
+    UserBalanceSerializer
 from .servisec.registration import add_referal
 
 
 class UserIDView(APIView):
     """ Получаем user_id по телеграм id"""
+
     # permission_classes = (IsAdminUser,)
     def get(self, request, pk):
         try:
@@ -46,10 +49,35 @@ class UserCanBeInvitedView(APIView):
     permission_classes = (IsAdminUser,)
 
     def get(self, request, pk):
-        print(request)
         can_be_invited = BotUser.objects.get(telegram_id=pk)
         serializer = UserCanBeInvitedSerializer(can_be_invited)
         return Response(serializer.data)
+
+
+class UserBonusBalanceView(APIView):
+    """ Информация о бонусном балансе пользователя """
+
+    # permission_classes = (IsAdminUser,)
+
+    def get(self, request, pk):
+        user = BotUser.objects.get(telegram_id=pk)
+        serializer = UserBalanceSerializer(user)
+        return Response(serializer.data)
+
+
+class UserCashbackView(APIView):
+    """ Информация о кэшбэке пользователя """
+
+    # permission_classes = (IsAdminUser,)
+
+    def get(self, request, telegram_id):
+        levels = BotUser.objects.get(telegram_id=telegram_id)
+        data = {
+            'user_cashback': PERSONAL_CASHBACK_LEVEL[levels.personal_cashback_level]['value'] +
+                             REFERAL_CASHBACK_LEVEL[levels.referral_cashback_level]['value']
+        }
+        logger.info(data)
+        return Response(data=data, status=200)
 
 
 class UserRegistrationAPIview(GenericAPIView):

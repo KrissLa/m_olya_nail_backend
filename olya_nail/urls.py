@@ -31,6 +31,9 @@ urlpatterns = [
     path('api/v1/users/', include('users.urls')),
     path('api/v1/instagram/', include('instagram.urls')),
     path('api/v1/questions/', include('questions.urls')),
+    path('api/v1/services/', include('services.urls')),
+    path('api/v1/dates/', include('available_dates.urls')),
+    path('api/v1/orders/', include('orders.urls')),
 
 ]
 

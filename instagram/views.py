@@ -1,11 +1,10 @@
-from django.shortcuts import render
 from loguru import logger
-from rest_framework.permissions import IsAdminUser
-from rest_framework.generics import CreateAPIView, GenericAPIView, ListAPIView
+from loguru import logger
+from rest_framework.generics import GenericAPIView, ListAPIView
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from .serializers import PicturesListSerializer
+
 from .models import Picture
+from .serializers import PicturesListSerializer
 
 
 class PicturesAdditionAPIview(GenericAPIView):
@@ -27,6 +26,7 @@ class PicturesAdditionAPIview(GenericAPIView):
 
 class PicturesListAPIView(ListAPIView):
     """Список из 5-и последних добавленных фото"""
+    # permission_classes = (IsAdminUser,)
     queryset = Picture.objects.filter(draft=False).order_by('-id')[:5]
     serializer_class = PicturesListSerializer
 
