@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import BotUser
+from .models import BotUser, BonusTransaction
 
 
 class UserListSerializer(serializers.ModelSerializer):
@@ -18,6 +18,14 @@ class UserIDSerializer(serializers.ModelSerializer):
         fields = ("id",)
 
 
+class UserNameSerializer(serializers.ModelSerializer):
+    """ ID пользователя """
+
+    class Meta:
+        model = BotUser
+        fields = ("id", "name",)
+
+
 class UserCanBeInvitedSerializer(serializers.ModelSerializer):
     """ Проверяем может ли пользователь быть приглашен """
 
@@ -25,12 +33,53 @@ class UserCanBeInvitedSerializer(serializers.ModelSerializer):
         model = BotUser
         fields = ("can_be_invited",)
 
+
 class UserBalanceSerializer(serializers.ModelSerializer):
     """ Получаем бонусный баланс пользователя """
 
     class Meta:
         model = BotUser
         fields = ("bonus_balance",)
+
+
+class UserDataSerializer(serializers.Serializer):
+    """
+    Сериализация данных из бота
+    """
+    telegram_id = serializers.IntegerField()
+    name = serializers.CharField(max_length=150, default="")
+    username = serializers.CharField(max_length=200, default="")
+    referer = serializers.IntegerField(default=None)
+
+
+class UserDetailSerializer(serializers.ModelSerializer):
+    """
+    Сериализация модели пользователя
+    """
+
+    class Meta:
+        model = BotUser
+        fields = "__all__"
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    """
+    Сериализация данных для профиля пользователя
+    """
+    referer = UserNameSerializer(read_only=True)
+
+    class Meta:
+        model = BotUser
+        fields = "__all__"
+
+
+class BonusTransactionListSerializer(serializers.ModelSerializer):
+    """
+    Сериализация списка бонусных транзакций
+    """
+    class Meta:
+        model = BonusTransaction
+        fields = "__all__"
 
 
 # class PersonalCashbackSerializer(serializers.ModelSerializer):

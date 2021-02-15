@@ -16,10 +16,20 @@ class PicturesAdditionAPIview(GenericAPIView):
         logger.info(request.data)
         picture = PicturesListSerializer(data=request.data)
         logger.info(picture)
+        try:
+            picture_for_remove = Picture.objects.all().order_by('-id')[5:]
+        except Exception as e:
+            logger.error(e)
+
+        else:
+            [pic.delete() for pic in picture_for_remove]
+            logger.info(picture_for_remove)
         if picture.is_valid():
             picture.save()
             logger.info(picture.data)
+
             return Response(data=picture.data, status=201)
+
         else:
             return Response(data={"success": False}, status=498)
 

@@ -1,7 +1,7 @@
 from loguru import logger
-from ..models import BotUser, Referal
+from ..models import BotUser
 
-from olya_nail.settings import FREE_BONUS, REFERAL_BONUS, FREE_CODE
+from olya_nail.settings import FREE_BONUS, REFERRAL_BONUS, FREE_CODE
 
 
 def add_referal(user, user_id):
@@ -21,10 +21,10 @@ def add_referal(user, user_id):
             logger.info("Прошел проверку на валидность")
             referer = BotUser.objects.get(telegram_id=referer_tg_id)
             _add_referer(referer.id, user_id)
-            _add_bonus(REFERAL_BONUS, user_id)
+            _add_bonus(REFERRAL_BONUS, user_id)
             logger.info("ref and balance update")
             return {
-                "bonus": REFERAL_BONUS,
+                "bonus": REFERRAL_BONUS,
                 "ref": referer.name
             }
 
@@ -44,8 +44,8 @@ def add_referal(user, user_id):
 
 def _add_referer(referer_id, user_id):
     """Добавляем реферальную связь в таблицу"""
-    Referal(referer_id=referer_id,
-            referal_id=user_id).save()
+    Referral(referer_id=referer_id,
+             referral_id=user_id).save()
 
 
 def _add_bonus(bonus, user_id):

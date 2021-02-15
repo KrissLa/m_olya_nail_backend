@@ -53,3 +53,21 @@ class AnswerAPIView(APIView):
             "telegram_id": question.user.telegram_id
         }
         return Response(data=data, status=status.HTTP_200_OK)
+
+
+class QuestionListAPIView(APIView):
+    """ Вывод отзывов к заказу """
+
+    def get(self, request):
+        queryset = Question.objects.filter(is_answered=False)
+        data = [
+            {
+                "question_id": q.id,
+                "user_name": q.user.name,
+                "question": q.question,
+                "user_tg_id": q.user.telegram_id
+            }
+            for q in queryset
+        ]
+        logger.info(data)
+        return Response(data=data)

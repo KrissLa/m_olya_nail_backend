@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
 
+    'django_filters',
+
     'users',
     'instagram',
     'questions',
@@ -134,6 +136,9 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
     # 'DEFAULT_PERMISSION_CLASSES': [
     #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     # ]
@@ -175,10 +180,12 @@ SIMPLE_JWT = {
 #     'SERIALIZERS': {},
 # }
 
-
-REFERAL_BONUS = int(os.getenv("REFERAL_BONUS"))
-FREE_BONUS = int(os.getenv("FREE_BONUS"))
-FREE_CODE = str(os.getenv("FREE_CODE"))
+HOST = str(os.getenv("HOST"))
+REFERRAL_BONUS = int(os.getenv("REFERRAL_BONUS"))   # Бонус при регистрации по реф ссылке
+REFERRAL_FIXED_BONUS = int(os.getenv("REFERRAL_FIXED_BONUS"))  # Бонус за определенное кол-во заказов рефералов
+FREE_BONUS = int(os.getenv("FREE_BONUS"))   # Бонус при регистрации без реф ссылки
+FREE_CODE = str(os.getenv("FREE_CODE"))   #
+FIRST_BONUS = str(os.getenv("FIRST_BONUS"))   # Бонус за первый заказ приглашенного пользователя
 
 PERSONAL_CASHBACK_LEVEL = {
     1: {
@@ -209,31 +216,31 @@ PERSONAL_CASHBACK_LEVEL = {
     6: {
         'value': 2,
         'min_order_quantity': 20,
-        'max_order_quantity': 25
+        'max_order_quantity': 30
     },
     7: {
         'value': 2.1,
-        'min_order_quantity': 25,
-        'max_order_quantity': 30
-    },
-    8: {
-        'value': 2.2,
         'min_order_quantity': 30,
-        'max_order_quantity': 35
-    },
-    9: {
-        'value': 2.3,
-        'min_order_quantity': 35,
         'max_order_quantity': 40
     },
-    10: {
-        'value': 2.4,
+    8: {
+        'value': 3,
         'min_order_quantity': 40,
-        'max_order_quantity': 45
+        'max_order_quantity': 50
     },
-}
+    9: {
+        'value': 4,
+        'min_order_quantity': 50,
+        'max_order_quantity': 100
+    },
+    10: {
+        'value': 5,
+        'min_order_quantity': 100,
+        'max_order_quantity': 9999999
+    },
+}  # Уровни персонального кэшбэка и значения
 
-REFERAL_CASHBACK_LEVEL = {
+REFERRAL_CASHBACK_LEVEL = {
     0: {
         'value': 0,
         'min_order_quantity': 0,
@@ -260,33 +267,37 @@ REFERAL_CASHBACK_LEVEL = {
         'max_order_quantity': 30
     },
     5: {
-        'value': 1.4,
+        'value': 1.5,
         'min_order_quantity': 30,
         'max_order_quantity': 40
     },
     6: {
-        'value': 1.5,
+        'value': 2,
         'min_order_quantity': 40,
-        'max_order_quantity': 50
+        'max_order_quantity': 60
     },
     7: {
-        'value': 1.6,
-        'min_order_quantity': 50,
+        'value': 2.5,
+        'min_order_quantity': 60,
         'max_order_quantity': 70
     },
     8: {
-        'value': 1.7,
+        'value': 3,
         'min_order_quantity': 70,
-        'max_order_quantity': 90
+        'max_order_quantity': 100
     },
     9: {
-        'value': 1.8,
-        'min_order_quantity': 90,
-        'max_order_quantity': 110
+        'value': 4,
+        'min_order_quantity': 100,
+        'max_order_quantity': 500
     },
     10: {
-        'value': 1.9,
-        'min_order_quantity': 110,
-        'max_order_quantity': 130
+        'value': 5,
+        'min_order_quantity': 500,
+        'max_order_quantity': 999999999999
     },
-}
+}  # Уровни реферального кэшбэка и значения
+
+
+
+
