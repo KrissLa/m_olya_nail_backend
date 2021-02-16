@@ -12,11 +12,11 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from datetime import timedelta
 from pathlib import Path
 import os
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = str(os.getenv("SECRET_KEY"))
 HOST = str(os.getenv("HOST"))
+IP_ADDRESS = str(os.getenv("IP_ADDRESS"))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -24,10 +24,10 @@ HOST = str(os.getenv("HOST"))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
-ALLOWED_HOSTS = [HOST, 'localhost', '127.0.0.1:8000']
+ALLOWED_HOSTS = [IP_ADDRESS, 'localhost', '127.0.0.1']
 
 # Application definition
 
