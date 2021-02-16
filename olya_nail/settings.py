@@ -16,7 +16,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = str(os.getenv("SECRET_KEY"))
-
+HOST = str(os.getenv("HOST"))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -24,9 +24,10 @@ SECRET_KEY = str(os.getenv("SECRET_KEY"))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.getenv("DEBUG"))
+DEBUG = False
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = [HOST, 'localhost', '127.0.0.1:8000']
 
 # Application definition
 
@@ -131,6 +132,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+# STATICFILES_DIRS = [STATIC_ROOT]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -180,7 +184,6 @@ SIMPLE_JWT = {
 #     'SERIALIZERS': {},
 # }
 
-HOST = str(os.getenv("HOST"))
 REFERRAL_BONUS = int(os.getenv("REFERRAL_BONUS"))   # Бонус при регистрации по реф ссылке
 REFERRAL_FIXED_BONUS = int(os.getenv("REFERRAL_FIXED_BONUS"))  # Бонус за определенное кол-во заказов рефералов
 FREE_BONUS = int(os.getenv("FREE_BONUS"))   # Бонус при регистрации без реф ссылки

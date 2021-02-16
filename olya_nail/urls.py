@@ -39,3 +39,6 @@ urlpatterns = [
 ]
 
 urlpatterns += doc_urls
+
+admin.site.site_title = "Olya Nail"
+admin.site.site_header = "Маникюр Минск"

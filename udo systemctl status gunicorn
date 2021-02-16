@@ -1,0 +1,2 @@
+-- Logs begin at Wed 2021-02-10 18:24:13 MSK, end at Mon 2021-02-15 12:03:01 MSK. --
+Feb 15 12:02:16 440995-cw03889.tmweb.ru systemd[1]: Listening on gunicorn socket.
