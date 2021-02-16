@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.admin import StackedInline
 from django.utils.safestring import mark_safe
 
-from olya_nail.settings import HOST
+from olya_nail.settings import HOST, ADMIN_ADDRESS
 from orders.models import Order
 from .models import AvailableDate
 
@@ -26,7 +26,7 @@ class OrderAdminInline(StackedInline):
     can_delete = False
 
     def go_to_order(self, obj):
-        return mark_safe(f'<a href="{HOST}admin/orders/order/{obj.id}/change/">Перейти к заказу</a>')
+        return mark_safe(f'<a href="{HOST}{ADMIN_ADDRESS}/orders/order/{obj.id}/change/">Перейти к заказу</a>')
 
     go_to_order.short_description = 'Ссылка на подробную информацию о заказе'
 
