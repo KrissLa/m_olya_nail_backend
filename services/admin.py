@@ -14,6 +14,7 @@ class ServiceAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
             'fields': (
+                ('name',),
                 ('price',),
                 ('time',),
                 ('is_active',),
